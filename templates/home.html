@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Aadya Henna and Art Showcase{% endblock %}
+
+{% block content %}
+<section class="text-center">
+    <h2>Aadya's homepage</h2>
+    <p class="lead">Henna designs and other artistic projects.</p>
+</section>
+
+<section class="featured-designs py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            {% for design in designs %}
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="featured-item position-relative overflow-hidden">
+                    <div class="image-frame">
+                        {% if design.is_video %}
+                        <video class="featured-video w-100" loop muted>
+                            <source src="{{ design.file.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        {% else %}
+                        <img src="{{ design.file.url }}" alt="Featured Design {{ forloop.counter }}" class="gallery-image w-100">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+    
+<section class="events py-5">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2>Where to Find Aadya</h2>
+            <p class="lead">Come meet Aadya and get your Henna at these locations!</p>
+        </div>
+        <div class="event-list">
+            {% for event in events %}
+            <div class="event-item">
+                <div class="event-left">
+                    <p class="event-month">{{ event.date|date:"F" }}</p>
+                    <p class="event-date">{{ event.date|date:"d" }}</p>
+                    <p class="event-day">{{ event.date|date:"l" }}</p>
+                </div>
+                <div class="event-right">
+                    <div class="event-top">
+                        <h3 class="event-title">{{ event.title }}</h3>
+                        <div class="event-details">
+                            <p class="event-location"><strong>Location:</strong> {{ event.location }}</p>
+                            <p class="event-time"><strong>Time:</strong> {{ event.start_time|time:"H:i" }} - {{ event.end_time|time:"H:i" }}</p>
+                        </div>
+                    </div>
+                    <hr class="title-divider">
+                    <p class="event-description">{{ event.description | safe }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">No upcoming locations at the moment. Please check back later!</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+    
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const videos = document.querySelectorAll('.featured-video');
+
+    videos.forEach(video => {
+        video.addEventListener('mouseenter', function() {
+        video.play();
+    });
+        video.addEventListener('mouseleave', function() {
+            video.pause();
+            video.currentTime = 0;
+        });
+    });
+});
+</script>
+{% endblock %}

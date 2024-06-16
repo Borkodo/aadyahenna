@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Henna Gallery{% endblock %}
+
+{% block content %}
+<section class="henna-gallery py-5">
+    <div class="container">
+        <div class="row text-center mb-4">
+            <div class="col-md-12">
+                <h2>Henna Gallery</h2>
+                <p class="lead">All my henna designs</p>
+            </div>
+        </div>
+        <div class="row">
+            {% for design in designs %}
+            <div class="col-md-3 mb-4">
+                <div class="gallery-item">
+                    {% if design.is_video %}
+                    <video class="gallery-video" loop muted>
+                        <source src="{{ design.file.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    {% else %}
+                    <img src="{{ design.file.url }}" class="gallery-image" alt="Henna Design">
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const videos = document.querySelectorAll('.gallery-video');
+
+        videos.forEach(video => {
+            video.addEventListener('mouseenter', function() {
+                video.play();
+            });
+
+            video.addEventListener('mouseleave', function() {
+                video.pause();
+                video.currentTime = 0;
+            });
+        });
+    });
+</script>
+{% endblock %}
