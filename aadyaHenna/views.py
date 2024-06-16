@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.shortcuts import render, redirect
-from media_manager.models import Event, FeaturedDesign, ArtProject, Tag, HennaDesign
+from media_manager.models import Event, ArtProject, Tag, HennaDesign
 from django.utils import timezone
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings

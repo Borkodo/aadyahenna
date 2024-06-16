@@ -1,9 +1,8 @@
 from django.contrib import admin
-from .models import Event, FeaturedDesign, ArtProject, Tag, HennaDesign
+from .models import Event, ArtProject, Tag, HennaDesign
 from django_ckeditor_5.widgets import CKEditor5Widget
 
 
-admin.site.register(FeaturedDesign)
 admin.site.register(Event)
 
 
